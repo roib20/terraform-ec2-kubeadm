@@ -13,7 +13,7 @@ variable "aws_region" {
 variable "key_name" {
   type        = string
   description = "key_name"
-  nullable    = false
+  nullable    = true
   sensitive   = true
 }
 
