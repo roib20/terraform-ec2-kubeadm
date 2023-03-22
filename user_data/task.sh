@@ -2,8 +2,25 @@
 set -u
 
 main() {
-    install_dependencies
+    if [ "${1}" = "setup" ]; then
+        install_dependencies
+        setup_cluster
+        post_setup
+    elif [ "${1}" = "run_app" ]; then
+        install_dependencies
+        run_app
+        post_setup
+    elif [ "${1}" = "run_test" ]; then
+        run_test
+    else
+        install_dependencies
+        setup_cluster
+        run_app
+        post_setup
+    fi
+}
 
+setup_cluster() {
     # Environment variables
     UBUNTU_VERSION="$(lsb_release -sr)"
     OS="xUbuntu_${UBUNTU_VERSION}"
@@ -12,22 +29,6 @@ main() {
     CALICO_VERSION="3.25.0"
     CIDR="10.32.0.0/12" # Default CIDR for Flannel/Canal
 
-    if [ "${1}" = "setup" ]; then
-        setup_cluster
-        post_setup
-    elif [ "${1}" = "run_app" ]; then
-        run_app
-        post_setup
-    elif [ "${1}" = "run_test" ]; then
-        run_test
-    else
-        setup_cluster
-        run_app
-        post_setup
-    fi
-}
-
-setup_cluster() {
     add_apt_repos
     install_crio
     install_helm
