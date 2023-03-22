@@ -1,0 +1,8 @@
+instance_name = ""
+key_name      = ""
+my_ip         = ""
+sg_name       = ""
+aws_region    = "us-east-1"
+instance_type = "t3a.medium"
+volume_type   = "gp3"
+volume_size   = "16"
