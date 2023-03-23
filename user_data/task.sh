@@ -2,16 +2,18 @@
 set -u
 
 main() {
-    if [ "${1}" = "setup" ]; then
-        install_dependencies
-        setup_cluster
-        post_setup
-    elif [ "${1}" = "run_app" ]; then
-        install_dependencies
-        run_app
-        post_setup
-    elif [ "${1}" = "run_test" ]; then
-        run_test
+    if [ -n "${1}" ]; then
+        if [ "${1}" = "setup" ]; then
+            install_dependencies
+            setup_cluster
+            post_setup
+        elif [ "${1}" = "run_app" ]; then
+            install_dependencies
+            run_app
+            post_setup
+        elif [ "${1}" = "run_test" ]; then
+            run_test
+        fi
     else
         install_dependencies
         setup_cluster
