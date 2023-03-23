@@ -6,16 +6,16 @@ main() {
         install_dependencies
         setup_cluster
         run_app
-        post_setup
+        post_install
     else
         if [ "${1}" = "setup" ]; then
             install_dependencies
             setup_cluster
-            post_setup
+            post_install
         elif [ "${1}" = "run_app" ]; then
             install_dependencies
             run_app
-            post_setup
+            post_install
         elif [ "${1}" = "run_test" ]; then
             run_test
         fi
@@ -211,7 +211,7 @@ set_single_node_cluster() {
     kubectl taint nodes --all node-role.kubernetes.io/master- >/dev/null 2>&1
 }
 
-post_setup() {
+post_install() {
     # Install back needrestart for interactive use
     sudo apt-get --assume-yes install needrestart
 }
