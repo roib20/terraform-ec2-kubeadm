@@ -11,10 +11,10 @@ The `task.sh` User data shell script is written using POSIX Shell so that it can
 ## Kubeadm Kubernetes cluster
 Some cluster add-ons are installed. [Canal](https://docs.tigera.io/calico/latest/getting-started/kubernetes/flannel/) is used as the cluster's [CNI](https://github.com/containernetworking/cni). Canal uses Calico for policy and Flannel for networking. The reason I decided to use Canal for this project is that I wanted a simple CNI like Flannel, but with support for [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) using Calico. For storage, [local-path-provisioner](https://github.com/rancher/local-path-provisioner) and [OpenEBS](https://openebs.io/) are installed.
 
+The container runtime used in this project is [CRI-O](https://github.com/cri-o/cri-o). I found CRI-O simpler to install than [containerd](https://containerd.io/), and I especially appreciated the consistent versioning which makes it easy to match CRI-O with an appropriate Kubernetes version.
+
 ## Operating system
 Ubuntu Minimal 22.04 LTS is recommended (and is used by default), however this project was also tested on Ubuntu 18.04 LTS and Ubuntu 20.04 LTS.
-
-The container runtime used in this project is [CRI-O](https://github.com/cri-o/cri-o). I found CRI-O simpler to install than [containerd](https://containerd.io/), and I especially appreciated the consistent versioning which makes it easy to match CRI-O with an appropriate Kubernetes version.
 
 ### FAQ
 ## How to deploy this?
