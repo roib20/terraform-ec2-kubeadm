@@ -1,8 +1,13 @@
 #!/bin/sh
-set -u
+set -ux
 
 main() {
-    if [ -n "${1}" ]; then
+    if [ -z "${1+x}" ]; then
+        install_dependencies
+        setup_cluster
+        run_app
+        post_setup
+    else
         if [ "${1}" = "setup" ]; then
             install_dependencies
             setup_cluster
@@ -14,11 +19,6 @@ main() {
         elif [ "${1}" = "run_test" ]; then
             run_test
         fi
-    else
-        install_dependencies
-        setup_cluster
-        run_app
-        post_setup
     fi
 }
 
