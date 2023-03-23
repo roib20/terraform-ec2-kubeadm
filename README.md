@@ -17,7 +17,7 @@ The container runtime used in this project is [CRI-O](https://github.com/cri-o/c
 Ubuntu Minimal 22.04 LTS is recommended (and is used by default), however this project was also tested on Ubuntu 18.04 LTS and Ubuntu 20.04 LTS.
 
 ## FAQ
-### How to deploy this?
+### How to deploy this on AWS?
 1) Create an [SSH Key Pair for AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html).
 
 2) Install Terraform and ensure it can deploy AWS resources to your account.
@@ -44,5 +44,27 @@ ssh "$(terraform output --raw instance_public_ip)" -l "ubuntu"
 curl -fsSL https://raw.githubusercontent.com/roib20/terraform-ec2-kubeadm/main/user_data/task.sh | /bin/sh -s -- run_test
 ```
 
-### How to destroy this?
+### How to destroy this on AWS?
 Just run `terraform destroy` from the project directory.
+
+### How to deploy this on an Ubuntu VM?
+1) Install an Ubuntu 22.04 LTS VM [using Proxmox VE](https://github.com/roib20/proxmox-scripts/tree/main/proxmox-cloudinit-script) or another hypervisor. Non-VM installs are not recommended because the script does a lot of changes to a system.
+
+2) SSH into your Ubuntu VM, run the `task.sh` script using this command:
+```
+curl -fsSL https://raw.githubusercontent.com/roib20/terraform-ec2-kubeadm/main/user_data/task.sh | /bin/sh -s --
+```
+
+3) Once the script completes, check if `kubectl` is working. If not, try runnig these commands:
+```
+mkdir -p "${HOME}/.kube"
+sudo cp -i "/etc/kubernetes/admin.conf" "${HOME}/.kube/config"
+sudo chown "$(id -u):$(id -g)" "${HOME}/.kube/config"
+```
+
+4) Run `kubectl get pods -A` to ensure everything deployed correctly (note: some pods could take several minutes to start).
+
+5) You can check the liveness of the app by running the `task.sh` shell script with the `run_test` flag:
+```
+curl -fsSL https://raw.githubusercontent.com/roib20/terraform-ec2-kubeadm/main/user_data/task.sh | /bin/sh -s -- run_test
+```
