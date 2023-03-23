@@ -180,9 +180,13 @@ init_kubeadm_cluster() {
 
 set_kubeconfig() {
     # Set kubeconfig for the current user
-    mkdir -p "${HOME}/.kube"
-    sudo cp -i "/etc/kubernetes/admin.conf" "${HOME}/.kube/config"
-    sudo chown "$(id -u):$(id -g)" "${HOME}/.kube/config"
+    if [ -z "${HOME+x}" ]; then
+        true
+    else
+        mkdir -p "${HOME}/.kube"
+        sudo cp -i "/etc/kubernetes/admin.conf" "${HOME}/.kube/config"
+        sudo chown "$(id -u):$(id -g)" "${HOME}/.kube/config"
+    fi
 }
 
 install_cluster_addons() {
