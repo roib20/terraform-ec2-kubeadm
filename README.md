@@ -30,15 +30,11 @@ The container runtime used in this project is [CRI-O](https://github.com/cri-o/c
 
 5) When Terraform completes, wait a few minutes for the User data shell script to complete in the backgroud.
 
-6) SSH into your newly created Ubuntu EC2 instance. In order to be able to use `kubectl`, run the following commands:
-```
-mkdir -p "${HOME}/.kube"
-sudo cp -i "/etc/kubernetes/admin.conf" "${HOME}/.kube/config"
-sudo chown "$(id -u):$(id -g)" "${HOME}/.kube/config"
-```
-7) Run `kubectl get pods -A` to ensure everything deployed correctly (some pods might take some time).
+6) SSH into your newly created Ubuntu EC2 instance.
 
-8) You can check the liveness of the app  by running the `task.sh` shell script with the `run_test` flag:
+7) Run `kubectl get pods -A` to ensure everything deployed correctly (some pods could take several minutes to start).
+
+8) You can check the liveness of the app by running the `task.sh` shell script with the `run_test` flag:
 ```
 curl -fsSL https://raw.githubusercontent.com/roib20/terraform-ec2-kubeadm/main/user_data/task.sh | /bin/sh -s -- run_test
 ```

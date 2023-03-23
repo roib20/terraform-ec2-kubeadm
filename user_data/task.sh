@@ -83,7 +83,7 @@ install_dependencies() {
 
     # Install dependencies
     sudo apt-get update
-    sudo apt-get install --assume-yes apt-transport-https ca-certificates coreutils curl git gnupg lsb-release sed wget
+    sudo apt-get install --assume-yes apt-transport-https ca-certificates coreutils curl git gnupg grep lsb-release sed wget
 }
 
 add_apt_repos() {
@@ -180,11 +180,14 @@ init_kubeadm_cluster() {
 }
 
 set_kubeconfig() {
-    # set kubeconfig for the root user
-    export KUBECONFIG=/etc/kubernetes/admin.conf
+    # Set kubeconfig for the root user
+    if id 0 >/dev/null 2>&1; then
+        export KUBECONFIG=/etc/kubernetes/admin.conf
+    fi
 
     # Set kubeconfig for the current user
     if [ -z "${HOME+x}" ]; then
+        # Skip if the current user does not have a home directory set
         true
     else
         mkdir -p "${HOME}/.kube"
@@ -192,10 +195,16 @@ set_kubeconfig() {
         sudo chown "$(id -u):$(id -g)" "${HOME}/.kube/config"
     fi
 
+    # Set kubeconfig for the uid=1000 user (e.g. "ubuntu" user)
     if id 1000 >/dev/null 2>&1; then
-        echo 'user found'
-    else
-        echo 'user not found'
+        # Find the name of the uid=1000 user
+        user_1000=$(id --user 1000 --name)
+        # Find the home directory of the uid=1000 user
+        user_1000_home=$(grep "${user_1000}" /etc/passwd | cut -d ":" -f6)
+
+        mkdir -p "${user_1000_home}/.kube"
+        sudo cp -i "/etc/kubernetes/admin.conf" "${user_1000_home}/.kube/config"
+        sudo chown "$(id 1000 --user):$(id 1000 --group)" "${user_1000_home}/.kube/config"
     fi
 }
 
