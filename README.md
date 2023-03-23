@@ -22,22 +22,24 @@ Ubuntu Minimal 22.04 LTS is recommended (and is used by default), however this p
 
 2) Install Terraform and ensure it can deploy AWS resources to your account.
 
-2) Edit the `terraform.tfvars.example` file:
+3) Clone this repository.
+
+4) Edit the `terraform.tfvars.example` file:
 * Use the command: `cp "terraform.tfvars.example" "terraform.tfvars"`
 * Edit `terraform.tfvars` using a text editor; add all necessary values (including your IP and Key Pair name).
 
-4) Run `terraform init && terraform apply` from the project directory.
+5) Run `terraform init && terraform apply` from the project directory.
 
-5) When Terraform completes, wait a few minutes for the User data shell script to complete in the backgroud.
+6) When Terraform completes, wait a few minutes for the User data shell script to complete in the backgroud.
 
-6) SSH into your newly created Ubuntu EC2 instance using the following command:
+7) SSH into your newly created Ubuntu EC2 instance using the following command:
 ```
 ssh "$(terraform output --raw instance_public_ip)" -l "ubuntu"
 ```
 
-7) Run `kubectl get pods -A` to ensure everything deployed correctly (note: some pods could take several minutes to start).
+8) Run `kubectl get pods -A` to ensure everything deployed correctly (note: some pods could take several minutes to start).
 
-8) You can check the liveness of the app by running the `task.sh` shell script with the `run_test` flag:
+9) You can check the liveness of the app by running the `task.sh` shell script with the `run_test` flag:
 ```
 curl -fsSL https://raw.githubusercontent.com/roib20/terraform-ec2-kubeadm/main/user_data/task.sh | /bin/sh -s -- run_test
 ```
