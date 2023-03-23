@@ -1,5 +1,5 @@
 #!/bin/sh
-set -ux
+set -u
 
 main() {
     if [ -z "${1+x}" ]; then
