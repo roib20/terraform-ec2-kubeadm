@@ -180,6 +180,9 @@ init_kubeadm_cluster() {
 }
 
 set_kubeconfig() {
+    # set kubeconfig for the root user
+    export KUBECONFIG=/etc/kubernetes/admin.conf
+
     # Set kubeconfig for the current user
     if [ -z "${HOME+x}" ]; then
         true
@@ -187,6 +190,12 @@ set_kubeconfig() {
         mkdir -p "${HOME}/.kube"
         sudo cp -i "/etc/kubernetes/admin.conf" "${HOME}/.kube/config"
         sudo chown "$(id -u):$(id -g)" "${HOME}/.kube/config"
+    fi
+
+    if id 1000 >/dev/null 2>&1; then
+        echo 'user found'
+    else
+        echo 'user not found'
     fi
 }
 
