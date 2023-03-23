@@ -9,6 +9,13 @@ resource "aws_security_group" "sg_ssh" {
     cidr_blocks = ["${var.my_ip}/32"]
   }
 
+  ingress {
+    from_port = 30001
+    to_port = 30001
+    protocol = "tcp"
+    cidr_blocks = ["${var.my_ip}/32"]
+  }
+
   # Outbound rules
   egress {
     from_port = 0
