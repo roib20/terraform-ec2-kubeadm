@@ -3,6 +3,7 @@ set -u
 
 main() {
     if [ -z "${1+x}" ]; then
+        # When script runs without a flag, default is to setup cluster and run app.
         install_dependencies
         setup_cluster
         run_app
