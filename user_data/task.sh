@@ -181,8 +181,10 @@ init_kubeadm_cluster() {
 
 set_kubeconfig() {
     # Set kubeconfig for the root user
-    if id 0 >/dev/null 2>&1; then
-        export KUBECONFIG=/etc/kubernetes/admin.conf
+    if id 1000 >/dev/null 2>&1; then
+        if [ "$(id --user)" -eq 0 ]; then
+            export KUBECONFIG=/etc/kubernetes/admin.conf
+        fi
     fi
 
     # Set kubeconfig for the current user
