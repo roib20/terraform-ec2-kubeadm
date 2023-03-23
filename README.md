@@ -30,9 +30,12 @@ The container runtime used in this project is [CRI-O](https://github.com/cri-o/c
 
 5) When Terraform completes, wait a few minutes for the User data shell script to complete in the backgroud.
 
-6) SSH into your newly created Ubuntu EC2 instance.
+6) SSH into your newly created Ubuntu EC2 instance using the following command:
+```
+ssh "$(terraform output --raw instance_public_ip)" -l "ubuntu"
+```
 
-7) Run `kubectl get pods -A` to ensure everything deployed correctly (some pods could take several minutes to start).
+7) Run `kubectl get pods -A` to ensure everything deployed correctly (note: some pods could take several minutes to start).
 
 8) You can check the liveness of the app by running the `task.sh` shell script with the `run_test` flag:
 ```
