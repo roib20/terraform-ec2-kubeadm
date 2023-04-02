@@ -55,7 +55,7 @@ Just run `terraform destroy` from the project directory.
 curl -fsSL https://raw.githubusercontent.com/roib20/terraform-ec2-kubeadm/main/user_data/task.sh | /bin/sh -s --
 ```
 
-3) Once the script completes, check if `kubectl` is working. If not, try runnig these commands:
+3) Once the script completes, check if `kubectl` is working. If not, try running these commands:
 ```
 mkdir -p "${HOME}/.kube"
 sudo cp -i "/etc/kubernetes/admin.conf" "${HOME}/.kube/config"
