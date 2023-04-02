@@ -16,6 +16,9 @@ The container runtime used in this project is [CRI-O](https://github.com/cri-o/c
 ### Operating system
 Ubuntu Minimal 22.04 LTS is recommended (and is used by default), however this project was also tested on Ubuntu 18.04 LTS and Ubuntu 20.04 LTS.
 
+### Instance type
+It is recommended to use an instance with at least 2 vCPUs and 4 GiB of memory. The default instance used in this Terraform project is `t3a.medium` (which is a cost-effective option). If using your own VM, make sure to dedicate a similar amount of resources.
+
 ## FAQ
 ### How to deploy this on AWS?
 1) Create an [SSH Key Pair for AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html).
