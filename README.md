@@ -26,7 +26,7 @@ Ubuntu Minimal 22.04 LTS is recommended (and is used by default), however this p
 
 4) Edit the `terraform.tfvars.example` file:
 * Use the command: `cp "terraform.tfvars.example" "terraform.tfvars"`
-* Edit `terraform.tfvars` using a text editor; add all necessary values (including your IP and Key Pair name).
+* Edit `terraform.tfvars` using a text editor; add all necessary values (including your Key Pair name).
 
 5) Run `terraform init && terraform apply` from the project directory.
 
