@@ -5,5 +5,5 @@ output "instance_id" {
 
 output "instance_elastic_ip" {
   description = "Elastic IP address of the EC2 instance"
-  value       = aws_eip.lb.public_ip
+  value       = aws_eip.web.public_ip
 }
