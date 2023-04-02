@@ -34,7 +34,7 @@ Ubuntu Minimal 22.04 LTS is recommended (and is used by default), however this p
 
 7) SSH into your newly created Ubuntu EC2 instance using the following command:
 ```
-ssh "$(terraform output --raw instance_public_ip)" -l "ubuntu"
+ssh "$(terraform output --raw instance_elastic_ip)" -l "ubuntu"
 ```
 
 8) Run `kubectl get pods -A` to ensure everything deployed correctly (note: some pods could take several minutes to start).
