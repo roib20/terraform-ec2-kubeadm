@@ -17,13 +17,6 @@ variable "key_name" {
   sensitive   = true
 }
 
-variable "my_ip" {
-  type        = string
-  description = "my_ip"
-  nullable    = false
-  sensitive   = true
-}
-
 variable "sg_name" {
   type        = string
   description = "security group name"
