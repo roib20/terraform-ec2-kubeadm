@@ -1,7 +1,7 @@
 resource "aws_security_group" "kubeadm_sg" {
-  name = var.sg_name
+  name        = var.sg_name
   description = "kubeadm security group"
-  vpc_id = aws_vpc.kubeadm_vpc.id
+  vpc_id      = aws_vpc.kubeadm_vpc.id
 
 
   # Inbound rules
@@ -21,10 +21,10 @@ resource "aws_security_group" "kubeadm_sg" {
 
   # Outbound rules
   egress {
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port        = 0
+    protocol         = "-1"
+    to_port          = 0
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
 }

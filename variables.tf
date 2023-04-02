@@ -1,6 +1,6 @@
 variable "instance_name" {
-  type        = string
-  nullable    = true
+  type     = string
+  nullable = true
 }
 
 variable "aws_region" {
