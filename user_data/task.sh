@@ -83,7 +83,7 @@ install_dependencies() {
 
     # Install dependencies
     sudo apt-get update
-    sudo apt-get install --assume-yes apt-transport-https ca-certificates coreutils curl git gnupg grep lsb-release sed wget
+    sudo apt-get install --assume-yes apt-transport-https apt-utils ca-certificates coreutils curl git gnupg grep lsb-release sed wget
 }
 
 add_apt_repos() {
